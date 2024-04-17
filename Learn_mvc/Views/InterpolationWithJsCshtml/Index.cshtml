@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+</style>
+
+<div id="emp_div">
+
+</div>
+
+<script type="text/template" id="emp-template">
+    <table>
+        <tr>
+            <th>Employee Name</th>
+            <th>Employee Number</th>
+            <th>Employee Email</th>
+            <th>Employee Company</th>
+        </tr>
+        {{#if this}}
+        {{#each this}}
+        <tr>
+            <td>{{ this.EmpName }}</td>
+            <td>{{ this.EmpNumber }}</td>
+            <td>{{ boldRegisterHelper this.EmpEmail }}</td>
+            <td>{{ this.EmpCompany }}</td>
+        </tr>
+        {{/each}}
+        {{else }}
+        <tr><td colspan="4" align="center">No Records Founds!!</td></tr>
+        {{/if}}
+    </table>
+</script>
+
+<br />
+<br />
+
+<div id="addMoreEmpDiv">
+
+</div>
+
+<br />
+<br />
+
+<div>
+    <button onclick="AddMoreEmployee()">Add more employee</button>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.2/handlebars.min.js"></script>
+
+    <script>
+
+        $(function () {
+            LoadEmp();
+        });
+
+        function LoadEmp() {
+            var empTemplate = $('#emp-template').html();
+
+            var template = Handlebars.compile(empTemplate);
+
+            var employeDetails = "";
+            $.ajax({
+                url: '/InterpolationWithJsCshtml/GetEmployeeDetails',
+                async: false,
+                success: function (res) {
+                    employeDetails = res.Data;
+                }
+            });
+
+            $('#emp_div').html(template(employeDetails));
+        }
+
+        Handlebars.registerHelper('boldRegisterHelper', function (value) {
+            var html = '<b>' + value + '</b>';
+            return new Handlebars.SafeString(html);
+        });
+
+        function AddMoreEmployee() {
+            $.ajax({
+                url: '/InterpolationWithJsCshtml/AddMoreEmployee',
+                success: function (data) {
+                    debugger
+                    $("#addMoreEmpDiv").empty();
+                    $("#addMoreEmpDiv").html(data);
+                }
+            });
+        }
+    </script>
+}
+

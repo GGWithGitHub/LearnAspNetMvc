@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<span>Comments: </span><textarea id="txtArea" rows="4" cols="50"></textarea>
+<input type="submit" id="btnSubmit" value="Save">
+
+@section scripts{
+    <script>
+        var isCommentSave = false;
+
+        $("#btnSubmit").click(function (event) {
+            event.preventDefault();
+            var comments = $("#txtArea").val().trim();
+            if (comments != "") {
+                isCommentSave = true;
+                alert("Comment is saved... ");
+            }
+        })
+    </script>
+    <script>
+        $(function () {
+            $(window).on('beforeunload', function (event) {
+                var hasComment = $("#txtArea").val().trim();
+                if (isCommentSave == false && hasComment != "") {
+                    return 'Are you sure you want to leave?';
+                }
+            });
+        });
+    </script>
+}

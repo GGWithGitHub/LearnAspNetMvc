@@ -1,0 +1,35 @@
+﻿@model List<Learn_mvc.Models.Employee2>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<a href="javascript:void(0);" id="newemployeeadd" onclick="newemployee()"> Create New Employee </a>
+<div id="employee_list">
+    @Html.Partial("_EmployeeList", Model)
+</div>
+
+<script>
+    function newemployee() {
+        $.ajax({
+            url: '/CRUDModal/CreateEmployee',
+            success: function (data) {
+                bootbox.dialog({
+                    size: 'medium',
+                    message: data,
+                });
+            }
+        });
+    }
+
+    function getemployees() {
+        $.ajax({
+            url: '/CRUDModal/GetAllEmployeeList',
+            success: function (data) {
+                $("#employee_list").empty();
+                $("#employee_list").html(data[0]);
+            }
+        });
+    }
+</script>
+

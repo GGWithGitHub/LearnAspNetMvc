@@ -1,0 +1,67 @@
+﻿@model Learn_mvc.Models.Employee2
+
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.ReplaceWith,
+        UpdateTargetId = "divCreateEmp",
+        OnBegin = "onBegin",
+        OnSuccess = "onSuccess",
+        OnFailure = "onFailure"
+    };
+}
+
+<div id="divCreateEmp">
+    @using (Ajax.BeginForm("CreateEmployee", "CRUDModal", ajaxOptions, new { id = "createEmpForm" }))
+    {
+        <table>
+            <tr>
+                <td>Employee Name</td>
+                <td>
+                    @Html.TextBoxFor(x => x.EmpName)
+                    @Html.ValidationMessageFor(x => x.EmpName)
+                </td>
+            </tr>
+            <tr>
+                <td>Employee Email</td>
+                <td>
+                    @Html.TextBoxFor(x => x.EmpEmail)
+                    @Html.ValidationMessageFor(x => x.EmpEmail)
+                </td>
+            </tr>
+            <tr>
+                <td>Employee Address</td>
+                <td>
+                    @Html.TextBoxFor(x => x.EmpAddress)
+                    @Html.ValidationMessageFor(x => x.EmpAddress)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="button" id="btnsubmit" onclick="SubmitForm()" value="Create" /></td>
+            </tr>
+        </table>
+
+        @Html.HiddenFor(x => x.EmpId)
+    }
+</div>
+
+<script>
+    function onBegin() {
+        alert("onBegin");
+    }
+
+    function onSuccess() {
+        alert("onSuccess");
+        bootbox.hideAll();
+        getemployees();
+    }
+
+    function onFailure() {
+        alert("onFailure");
+    }
+
+    function SubmitForm() {
+        $('form').submit();
+    }
+</script>

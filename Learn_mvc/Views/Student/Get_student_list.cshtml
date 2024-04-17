@@ -1,0 +1,40 @@
+﻿@*@using Learn_mvc;
+@model Learn_mvc.Models.BigViewModel*@
+
+@{
+    ViewBag.Title = "Get_student_list";
+    //var StudentModels = ViewBag.Students;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>    
+</head>
+<body>
+    <h2>Get_student_list</h2>
+
+    <div style="margin-bottom:10px;">
+        @Html.ActionLink("Create New", "Create_student", "Student", "", new { @class = "btn btn-sm btn-primary rounded-0" })
+    </div>
+    <h4 class="text-center text-uppercase">List of employees</h4>
+
+    <div id="container_load_student_list_partial">
+        @Html.Partial("Load_student_list");
+    </div>
+
+    
+
+    <script type="text/javascript">
+        $(function () {
+            $('body').on('click', '.delete_student', function (e) {
+
+                Delete_student("POST", $(this).attr('href'),"",e);
+                
+            });
+        });
+    </script>
+</body>
+</html>
+

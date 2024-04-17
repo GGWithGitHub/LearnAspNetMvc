@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Get_student_list";
+    var StudentModels = ViewBag.Students;
+}
+
+<table id="example" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id </th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone </th>
+            <th>Action(s)</th>
+        </tr>
+    </thead>
+    @foreach (var item in StudentModels)
+    {
+        <tr>
+            <td>@item.Id.ToString()</td>
+            <td>@item.Name.</td>
+            <td>@item.Email</td>
+            <td>@item.Phone</td>
+            <td>
+                <a href="@Url.Action("Edit_student","Student",new { id=item.Id})" class="btn btn-sm btn-info"><i class="fa fa-pencil-square"></i></a>
+                <a href="@Url.Action("Delete_student","Student",new { id=item.Id})" class="btn btn-sm btn-danger delete_student"><i class="fa fa-trash-o"></i></a>
+            </td>
+        </tr>
+    }
+</table>

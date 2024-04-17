@@ -1,0 +1,80 @@
+﻿@model Learn_mvc.Models.City
+
+@{
+    ViewBag.Title = "Index";
+    
+}
+
+@{
+    AjaxOptions options = new AjaxOptions();
+    options.HttpMethod = "POST";
+    options.OnBegin = "OnBeginRequest";
+    options.OnSuccess = "OnSuccessRequest";
+    options.OnComplete = "OnCompleteRequest";
+    options.OnFailure = "OnFailureRequest";
+    //options.Confirm = "Do you want to Add City ?";
+    //options.LoadingElementId = "divProgress";
+    //options.LoadingElementDuration = 1000;
+    options.UpdateTargetId = "divResponse";
+    options.InsertionMode = InsertionMode.Replace;
+}
+
+@using (Ajax.BeginForm("AddCity", "AjaxHelpers", options))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Cities</legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Name, new { id = "city_name" })
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <p>
+            <input id="add_city_btn" type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<h4> List of added city :- </h4>
+
+<div id="divResponse">
+    @{
+        var cities = (List<Learn_mvc.Models.City>)ViewBag.cities;
+        Html.RenderPartial("_ShowCities", cities);
+    }
+</div>
+
+
+<script type="text/javascript">
+
+    $("#add_city_btn").click(async function (e) {
+        e.preventDefault();
+        var res = await Confirm("Add City", "Do you want to Add City ?");
+        if (res) {
+            $("#add_city_btn").submit();
+        }
+    });
+
+    function OnBeginRequest() {
+        $("#city_name").val("");
+        Loading();
+    }
+
+    function OnCompleteRequest() {
+        alert("OnCompleteRequest");
+        Hide();
+    }
+
+    function OnSuccessRequest(res) {
+        //Hide();
+    }
+
+    function OnFailureRequest() {
+
+    }
+
+</script>

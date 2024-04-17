@@ -1,0 +1,40 @@
+﻿@model List<Learn_mvc.Models.CustomerViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+</style>
+
+<table>
+    <tr>
+        <th>Customer Name</th>
+        <th>Customer Address</th>
+        <th>Customer City</th>
+        <th>Customer State</th>
+        <th>Customer Zip</th>
+        <th>Customer Country</th>
+        <th>Customer Company Name</th>
+    </tr>
+    @foreach (var cust in Model)
+    {
+        <tr>
+            <td>@cust.ContactName</td>
+            <td>@cust.Address</td>
+            <td>@cust.City</td>
+            <td>@cust.State</td>
+            <td>@cust.Zip</td>
+            <td>@cust.Country</td>
+            <td>@cust.CompanyName</td>
+        </tr>
+    }
+</table>

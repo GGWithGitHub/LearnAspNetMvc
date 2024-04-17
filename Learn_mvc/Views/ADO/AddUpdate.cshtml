@@ -1,0 +1,46 @@
+﻿@model Learn_mvc.Models.Student2
+
+@{
+    ViewBag.Title = "AddUpdate";
+}
+
+<h4>@ViewBag.errmsg</h4>
+
+@using (Html.BeginForm("AddUpdate", "ADO", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>Student Name</td>
+            <td>
+                @Html.TextBoxFor(x => x.Std_name)
+                @Html.ValidationMessageFor(x => x.Std_name)
+            </td>
+        </tr>
+        <tr>
+            <td>Student Rollnumber</td>
+            <td>
+                @Html.TextBoxFor(x => x.Std_rollnumber)
+                @Html.ValidationMessageFor(x => x.Std_rollnumber)
+            </td>
+        </tr>
+        <tr>
+            <td>Student Class</td>
+            <td>
+                @Html.TextBoxFor(x => x.Std_class)
+                @Html.ValidationMessageFor(x => x.Std_class)
+            </td>
+        </tr>
+        <tr>
+            <td>Student Subject</td>
+            <td>
+                @Html.TextBoxFor(x => x.Std_subject)
+                @Html.ValidationMessageFor(x => x.Std_subject)
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Create" /></td>
+        </tr>
+    </table>
+
+    @Html.HiddenFor(x => x.Std_id)
+}

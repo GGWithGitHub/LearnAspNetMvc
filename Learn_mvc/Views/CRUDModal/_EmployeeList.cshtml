@@ -1,0 +1,30 @@
+﻿@model List<Learn_mvc.Models.Employee2>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+</style>
+
+<div>
+    <table>
+        <tr>
+            <th>Employee Name</th>
+            <th>Employee Email</th>
+            <th>Employee Address</th>
+        </tr>
+        @foreach (var emp in Model)
+        {
+            <tr>
+                <td>@emp.EmpName</td>
+                <td>@emp.EmpEmail</td>
+                <td>@emp.EmpAddress</td>
+            </tr>
+        }
+    </table>
+</div>

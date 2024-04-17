@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MyDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_company">
+          <Key>
+            <PropertyRef Name="cmp_id" />
+          </Key>
+          <Property Name="cmp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cmp_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="cmp_address" Type="nvarchar" MaxLength="50" />
+          <Property Name="cmp_rating" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="company_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="contact_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" />
+          <Property Name="city" Type="nvarchar" MaxLength="50" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" />
+          <Property Name="zip" Type="nvarchar" MaxLength="50" />
+          <Property Name="country" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_employee">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="emp_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="emp_email" Type="nvarchar" MaxLength="50" />
+          <Property Name="emp_phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="emp_address" Type="nvarchar" MaxLength="50" />
+          <Property Name="emp_city" Type="nvarchar" MaxLength="50" />
+          <Property Name="emp_state" Type="nvarchar" MaxLength="50" />
+          <Property Name="emp_country" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_student">
+          <Key>
+            <PropertyRef Name="StdId" />
+          </Key>
+          <Property Name="StdId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StdName" Type="nvarchar" MaxLength="50" />
+          <Property Name="StdRollNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="StdClass" Type="nvarchar" MaxLength="50" />
+          <Property Name="StdSubject" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="MyDBModelStoreContainer">
+          <EntitySet Name="tbl_company" EntityType="Self.tbl_company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_customer" EntityType="Self.tbl_customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_employee" EntityType="Self.tbl_employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_student" EntityType="Self.tbl_student" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_company">
+          <Key>
+            <PropertyRef Name="cmp_id" />
+          </Key>
+          <Property Name="cmp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cmp_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cmp_address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cmp_rating" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="contact_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="zip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_employee">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="emp_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="emp_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="emp_phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="emp_address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="emp_city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="emp_state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="emp_country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_student">
+          <Key>
+            <PropertyRef Name="StdId" />
+          </Key>
+          <Property Name="StdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StdName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StdRollNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StdClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StdSubject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="MyDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_company" EntityType="Self.tbl_company" />
+          <EntitySet Name="tbl_customer" EntityType="Self.tbl_customer" />
+          <EntitySet Name="tbl_employee" EntityType="Self.tbl_employee" />
+          <EntitySet Name="tbl_student" EntityType="Self.tbl_student" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyDBModelStoreContainer" CdmEntityContainer="MyDBEntities">
+          <EntitySetMapping Name="tbl_company">
+            <EntityTypeMapping TypeName="MyDBModel.tbl_company">
+              <MappingFragment StoreEntitySet="tbl_company">
+                <ScalarProperty Name="cmp_id" ColumnName="cmp_id" />
+                <ScalarProperty Name="cmp_name" ColumnName="cmp_name" />
+                <ScalarProperty Name="cmp_address" ColumnName="cmp_address" />
+                <ScalarProperty Name="cmp_rating" ColumnName="cmp_rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_customer">
+            <EntityTypeMapping TypeName="MyDBModel.tbl_customer">
+              <MappingFragment StoreEntitySet="tbl_customer">
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="contact_name" ColumnName="contact_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="country" ColumnName="country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_employee">
+            <EntityTypeMapping TypeName="MyDBModel.tbl_employee">
+              <MappingFragment StoreEntitySet="tbl_employee">
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="emp_name" ColumnName="emp_name" />
+                <ScalarProperty Name="emp_email" ColumnName="emp_email" />
+                <ScalarProperty Name="emp_phone" ColumnName="emp_phone" />
+                <ScalarProperty Name="emp_address" ColumnName="emp_address" />
+                <ScalarProperty Name="emp_city" ColumnName="emp_city" />
+                <ScalarProperty Name="emp_state" ColumnName="emp_state" />
+                <ScalarProperty Name="emp_country" ColumnName="emp_country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_student">
+            <EntityTypeMapping TypeName="MyDBModel.tbl_student">
+              <MappingFragment StoreEntitySet="tbl_student">
+                <ScalarProperty Name="StdId" ColumnName="StdId" />
+                <ScalarProperty Name="StdName" ColumnName="StdName" />
+                <ScalarProperty Name="StdRollNumber" ColumnName="StdRollNumber" />
+                <ScalarProperty Name="StdClass" ColumnName="StdClass" />
+                <ScalarProperty Name="StdSubject" ColumnName="StdSubject" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

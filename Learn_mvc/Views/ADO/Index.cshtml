@@ -1,0 +1,46 @@
+﻿@model List<Learn_mvc.Models.Student2>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+</style>
+
+<h4>@ViewBag.errmsg</h4>
+
+@Html.ActionLink("Create", "AddUpdate", "ADO", new { id = 0 }, null)
+
+<table>
+    <tr>
+        <th>Student Name</th>
+        <th>Student Rollnumber</th>
+        <th>Student Class</th>
+        <th>Student Subject</th>
+        <th>Action</th>
+        <th>Action</th>
+    </tr>
+    @foreach (var std in Model)
+    {
+        <tr>
+            <td>@std.Std_name</td>
+            <td>@std.Std_rollnumber</td>
+            <td>@std.Std_class</td>
+            <td>@std.Std_subject</td>
+            <td>
+                @Html.ActionLink("Update", "AddUpdate", "ADO", new { id = std.Std_id }, null)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", "ADO", new { id = std.Std_id }, null)
+            </td>
+        </tr>
+    }
+</table>

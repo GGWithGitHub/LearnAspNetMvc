@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Index2";
+}
+
+<h2>Index2</h2>
+
+<button onClick="call_index3()">Call index 3</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    function call_index3()
+    {
+        $.ajax({
+            type: 'GET',
+            url: '/Test/Index3',
+            success: function (res) {
+                alert("success = "+res);
+
+            },
+            error: function (err) {
+                alert("error = "+err);
+            }
+        })
+    }
+</script>
+

@@ -1,0 +1,195 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 10px;
+    }
+</style>
+
+<div id="divAddEmp">
+    <form id="empForm">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <div>
+                            <span>Employee Name</span>
+                            <input type="text" id="txtEmpName" />
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span>Employee Salary</span>
+                            <input type="text" id="txtEmpSal" />
+                        </div>
+                    </td>
+                    <td>
+                        <button type="button" onclick="AddEmp()" id="btnAdd">Add</button>
+                        <button type="button" id="btnUpdateEmp" style="display:none;">Update</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<br/>
+<div id="divEmpList">
+    <table>
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Employee Salary</th>
+                <th>Action</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+    <script>
+        function GetEmps() {
+            var type = "GET";
+            var url = "/JqueryAjax/GetEmps";
+            AjaxCall(type, url).then(function (res) {
+                if (res.Message == "SUCCESS") {
+                    $("#divEmpList > table > tbody").empty();
+                    var data = res.Data;
+                    $.each(data, function (index, item) {
+                        //var empObj = JSON.stringify(item).replace(/"/g, '&quot;');
+                        var updateBtnId = "btnShowEmpOnUpdate" + index;
+                        var deleteBtnId = "btnDeleteEmp" + index;
+                        var html = `<tr>
+                                        <td>` + item.EmpName + `</td>
+                                        <td>` + item.EmpSalary + `</td>
+                                        <td>
+                                            <button type="button" id="`+ updateBtnId+`">Update</button>
+                                        </td>
+                                        <td>
+                                            <button type="button" id="`+ deleteBtnId+`">Delete</button>
+                                        </td>
+                                    </tr>`;
+                        
+                        $("#divEmpList > table > tbody").append(html);
+
+                        $("#" + updateBtnId).click(function () {
+                            ShowEmp(item);
+                        });
+                        $("#" + deleteBtnId).click(function () {
+                            DeleteEmp(item.EmpId);
+                        });
+                    });
+                }
+            }).catch(function (err) {
+                alert("Oops something is wrong...");
+            });
+        }
+
+        function ShowEmp(emp) {
+            $("#txtEmpName").val(emp.EmpName);
+            $("#txtEmpSal").val(emp.EmpSalary);
+            $("#btnUpdateEmp").show();
+            $("#btnUpdateEmp").off("click");
+            $("#btnUpdateEmp").click(function () {
+                var empName = $("#txtEmpName").val().trim();
+                var empSal = $("#txtEmpSal").val().trim();
+                var empObj = { EmpName: empName, EmpSalary: empSal };
+                UpdateEmp(emp.EmpId, empObj);
+            });
+            $("#btnAdd").hide();
+        }
+
+        function UpdateEmp(empId,emp) {
+            if (empId != null && empId.trim() != "") {
+                var type = "POST";
+                var url = "/JqueryAjax/UpdateEmp?empId=" + empId;
+                var obj = { EmpName: emp.EmpName, EmpSalary: emp.EmpSalary };
+                var jsonObj = JSON.stringify(obj);
+                AjaxCall(type, url, jsonObj).then(function (res) {
+                    if (res.Message == "SUCCESS") {
+                        var data = res.Data;
+                        if (data) {
+                            $("#empForm")[0].reset();
+                            $("#btnAdd").show();
+                            $("#btnUpdate").hide();
+                            GetEmps();
+                        }
+                    }
+                }).catch(function (err) {
+                    alert("Oops something is wrong...");
+                });
+            }
+        }
+
+        function DeleteEmp(empId) {
+            if (empId != null && empId.trim() != "") {
+                var type = "GET";
+                var url = "/JqueryAjax/DeleteEmp?empId=" + empId;
+                AjaxCall(type, url).then(function (res) {
+                    if (res.Message == "SUCCESS") {
+                        var data = res.Data;
+                        if (data) {
+                            GetEmps();
+                        }
+                    }
+                }).catch(function (err) {
+                    alert("Oops something is wrong...");
+                });
+            }
+        }
+
+        function AddEmp() {
+            var empName = $("#txtEmpName").val().trim();
+            var empSal = $("#txtEmpSal").val().trim();
+            if (empName != "" && empSal != "") {
+                var type = "POST";
+                var url = "/JqueryAjax/AddEmp";
+                var obj = { EmpName: empName, EmpSalary: empSal };
+                var jsonObj = JSON.stringify(obj);
+                AjaxCall(type, url, jsonObj).then(function (res) {
+                    if (res.Message == "SUCCESS") {
+                        var data = res.Data;
+                        if (data) {
+                            GetEmps();
+                        }
+                    }
+                }).catch(function (err) {
+                    alert("Oops something is wrong...");
+                });
+            }
+        }
+
+        function AjaxCall(type, url, data = "") {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    type: type,
+                    url: url,
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res, status, xhr) {
+                        resolve(res)
+                    },
+                    error: function (err, status, xhr) {
+                        reject(err)
+                    }
+                });
+            });
+        }
+    </script>
+
+    <script>
+        $(function () {
+            GetEmps();
+        });
+    </script>
+}
+

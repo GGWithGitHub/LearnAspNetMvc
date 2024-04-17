@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+
+    var GoogleAPIKey = "AIzaSyCzo11KXstMYvzQQSy2wCm1lKVQZG2b-bs";
+}
+
+<h4>Put your address</h4>
+<input type="text" name="nm_auto_address" id="id_auto_address" size="50" style="height:30px;" />
+
+<br />
+<br />
+
+<label>Name: <span id="id_address_name"></span></label>
+<br />
+<label>Street number: <span id="id_street_number"></span></label>
+<br />
+<label>Route: <span id="id_route"></span></label>
+<br />
+<label>Sub locality: <span id="id_sublocality"></span></label>
+<br />
+<label>Locality: <span id="id_locality"></span></label>
+<br />
+<label>State: <span id="id_state"></span></label>
+<br />
+<label>Postal code: <span id="id_postalcode"></span></label>
+<br />
+<label>Country: <span id="id_country"></span></label>
+<br />
+
+@section scripts{
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&libraries=places&key=@GoogleAPIKey"></script>
+
+    <script>
+        $("#id_auto_address").on('keypress', function () {
+
+            var autocomplete = new google.maps.places.Autocomplete(id_auto_address);
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var place = autocomplete.getPlace();
+
+                $("#id_address_name").html(place.name)
+                
+                for (var i = 0; i < place.address_components.length; i++) {
+                    var component = place.address_components[i];
+                    var addressType = component.types[0];
+                    switch (addressType) {
+                        case 'street_number': {
+                            console.log("street_number: " + component.long_name)
+                            $("#id_street_number").html(component.long_name)
+                            break;
+                        }
+                        case 'route': {
+                            console.log("route: " + component.long_name)
+                            $("#id_route").html(component.long_name)
+                            break;
+                        }
+                        case 'sublocality_level_1': {
+                            console.log("sublocality: " + component.long_name)
+                            $("#id_sublocality").html(component.long_name)
+                            break;
+                        }
+                        case 'locality': {
+                            console.log("city: " + component.long_name)
+                            $("#id_locality").html(component.long_name)
+                            break;
+                        }
+                        case 'administrative_area_level_1': {
+                            console.log("state: " + component.short_name)
+                            $("#id_state").html(component.short_name)
+                            break;
+                        }
+                        case 'postal_code': {
+                            console.log("postalcode: " + component.long_name)
+                            $("#id_postalcode").html(component.long_name)
+                            break;
+                        }
+                        case 'country':{
+                            console.log("country: " + component.long_name)
+                            $("#id_country").html(component.long_name)
+                            break;
+                        }
+                    }
+                }
+
+            });
+        });
+    </script>
+}

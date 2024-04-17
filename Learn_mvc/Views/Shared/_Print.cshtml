@@ -1,0 +1,37 @@
+﻿@{
+    var std = ViewBag.Students;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <img src="@std.Img" />
+    <table style="width:100%">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        @foreach (var item in std.StdList)
+        {
+            <tr>
+                <td>@item.fn</td>
+                <td>@item.ln</td>
+                <td>@item.age</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

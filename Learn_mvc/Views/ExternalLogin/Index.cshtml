@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (TempData["Msg"] != null) { 
+    <h2>@TempData["Msg"]</h2>
+}
+
+@Html.ActionLink("Login With GMail", "GmailFacebookLogin", "ExternalLogin", new { providerName = "google" }, null)
+
+<hr />
+
+@Html.ActionLink("Login With Facebook", "GmailFacebookLogin", "ExternalLogin", new { providerName = "facebook" }, null)
+
+
+

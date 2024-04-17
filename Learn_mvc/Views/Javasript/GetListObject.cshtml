@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "GetListObject";
+}
+
+<h3>List of object data</h3>
+<p>
+    {"ProductSKU":["G0000","G01234"],"ProductDetail":[{"Qty":10,"Price":150.4,"Rating":5},{"Qty":15,"Price":100.3,"Rating":4}]}
+</p>
+
+<button onclick="onPassData()">Pass List Of Object</button>
+
+@section scripts{
+    <script>
+        function onPassData() {
+            var myproducts = {
+                ProductSKU: ["G0000"],
+                ProductDetail: [
+                    { "Qty": 10, "Price": 150.4, "Rating": 5 }
+                ]
+            };
+            myproducts.ProductSKU.push("G01234");
+            var singleObj = {};
+            singleObj['Qty'] = 15;
+            singleObj['Price'] = 100.30;
+            singleObj['Rating'] = 4;
+            myproducts.ProductDetail.push(singleObj);
+            debugger
+            $.ajax({
+                type: "POST",
+                url: "/Javasript/GetListObject",
+                data: myproducts,
+                //contentType: "application/json; charset=utf-8",
+                //dataType: "json",
+                dataType: "text",
+                success: function (res) {
+                    if (res) {
+                        alert("Records is sent.");
+                    }
+                    else {
+                        alert("Records is not sent.");
+                    }
+                },
+                error: function (err) {
+                    
+                }
+            });
+        }
+    </script>
+}
+

@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Index6";
+}
+
+<textarea cols="10" rows="5" id="txtArea"></textarea>
+<button onclick="OnSubmit()">Submit</button>
+
+@section scripts{
+    <script>
+        function OnSubmit() {
+            var txt = $("#txtArea").val();
+            var type = "POST";
+            var url = "/Test/Index6Api?q=1";
+            var obj = { "b": txt };
+            //var jsonObj = JSON.stringify(obj);
+            AjaxCall(type, url, obj).then(function (res) {
+                debugger
+            }).catch(function (err) {
+                alert("Oops something is wrong...");
+            });
+        }
+        function AjaxCall(type, url, data = "") {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    type: type,
+                    url: url,
+                    data: data,
+                    //contentType: "application/json; charset=utf-8",
+                    //dataType: "json",
+                    dataType:"text",
+                    success: function (res, status, xhr) {
+                        resolve(res)
+                    },
+                    error: function (err, status, xhr) {
+                        reject(err)
+                    }
+                });
+            });
+        }
+    </script>    
+}
+

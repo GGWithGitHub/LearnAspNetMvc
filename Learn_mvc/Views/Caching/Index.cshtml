@@ -1,0 +1,38 @@
+﻿@model List<string>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    table td {
+        padding: 10px;
+        border: 2px solid #808080;
+        text-align: center;
+    }
+</style>
+
+@*<div class="jumbotron">
+    <h3>Static Content Caching in Asp.Net MVC</h3>
+    <table>
+        <tr>
+            <td><img src="~/Content/img/cafe-gc9cafb9d4_1920.jpg" width="300" height="300" />Image 1</td>
+            <td><img src="~/Content/img/dubai-g686b3fd0a_1920.jpg" width="300" height="300" />Image 2</td>
+            <td><img src="~/Content/img/nature-ge6f96ac7d_1920.jpg" width="300" height="300" />Image 3</td>
+        </tr>
+    </table>
+</div>*@
+
+<div class="jumbotron">
+    <h3>Static Content Caching in Asp.Net MVC</h3>
+    <table>
+        <tr>
+            @{int i = 0; }
+            @foreach (var img in Model)
+            {
+                <td><img src="@img" width="300" height="300" />Image @i</td>
+            }
+        </tr>
+    </table>
+</div>
+

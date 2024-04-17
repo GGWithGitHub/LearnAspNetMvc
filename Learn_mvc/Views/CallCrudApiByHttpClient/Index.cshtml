@@ -1,0 +1,207 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 10px;
+    }
+</style>
+
+<div id="divAddStd">
+    <form id="stdForm">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <div>
+                            <span>Student Name</span>
+                            <input type="text" id="txtStdName" />
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span>Student Age</span>
+                            <input type="text" id="txtStdAge" />
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <span>Student Subject</span>
+                            <input type="text" id="txtStdSubject" />
+                        </div>
+                    </td>
+                    <td>
+                        <button type="button" onclick="AddStd()" id="btnAdd">Add</button>
+                        <button type="button" id="btnUpdateStd" style="display:none;">Update</button>
+                        <button type="button" id="btnCancel" onclick="OnCancel()" style="display:none;">Cancel</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<br />
+<div id="divStdList">
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Student Age</th>
+                <th>Student Subject</th>
+                <th>Action</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+    <script>
+        function OnCancel() {
+            $("#btnAdd").show();
+            $("#btnUpdateStd").hide();
+            $("#btnCancel").hide();
+            $("#stdForm")[0].reset();
+        }
+
+        function GetStds() {
+            var type = "GET";
+            var url = "/CallCrudApiByHttpClient/GetStudents";
+            AjaxCall(type, url).then(function (res) {
+                if (res.resultantObject.Status_Code == "200") {
+                    $("#divStdList > table > tbody").empty();
+                    var data = res.resultantObject.Data;
+                    $.each(data, function (index, item) {
+                        //var empObj = JSON.stringify(item).replace(/"/g, '&quot;');
+                        var updateBtnId = "btnShowStdOnUpdate" + index;
+                        var deleteBtnId = "btnDeleteStd" + index;
+                        var html = `<tr>
+                                            <td>` + item.name + `</td>
+                                            <td>` + item.age + `</td>
+                                            <td>` + item.subject + `</td>
+                                            <td>
+                                                <button type="button" id="`+ updateBtnId + `">Update</button>
+                                            </td>
+                                            <td>
+                                                <button type="button" id="`+ deleteBtnId + `">Delete</button>
+                                            </td>
+                                        </tr>`;
+
+                        $("#divStdList > table > tbody").append(html);
+
+                        $("#" + updateBtnId).click(function () {
+                            ShowStd(item);
+                        });
+                        $("#" + deleteBtnId).click(function () {
+                            DeleteStd(item.id);
+                        });
+                    });
+                }
+            }).catch(function (err) {
+                alert("Oops something is wrong...");
+            });
+        }
+
+        function ShowStd(std) {
+            debugger
+            $("#txtStdName").val(std.name);
+            $("#txtStdAge").val(std.age);
+            $("#txtStdSubject").val(std.subject);
+            $("#btnUpdateStd").show();
+            $("#btnCancel").show();
+            $("#btnUpdateStd").off("click");
+            $("#btnUpdateStd").click(function () {
+                var stdName = $("#txtStdName").val().trim();
+                var stdAge = $("#txtStdAge").val().trim();
+                var stdSubject = $("#txtStdSubject").val().trim();
+                var stdObj = { id: std.id, name: stdName, age: stdAge, subject: stdSubject };
+                UpdateStd(stdObj);
+            });
+            $("#btnAdd").hide();
+        }
+
+        function UpdateStd(std) {
+            debugger
+            var type = "POST";
+            var url = "/CallCrudApiByHttpClient/AddUpdateStudent";
+            var jsonObj = JSON.stringify(std);
+            AjaxCall(type, url, jsonObj).then(function (res) {
+                if (res.resultantObject.Status_Code == "200") {
+                    $("#stdForm")[0].reset();
+                    $("#btnAdd").show();
+                    $("#btnUpdateStd").hide();
+                    $("#btnCancel").hide();
+                    GetStds();
+                }
+            }).catch(function (err) {
+                alert("Oops something is wrong...");
+            });
+        }
+
+        function DeleteStd(stdId) {
+            var type = "GET";
+            var url = "/CallCrudApiByHttpClient/DeleteStudent?id=" + stdId;
+            AjaxCall(type, url).then(function (res) {
+                if (res.resultantObject.Status_Code == "200") {
+                    GetStds();
+                }
+            }).catch(function (err) {
+                alert("Oops something is wrong...");
+            });
+        }
+
+        function AddStd() {
+            var stdName = $("#txtStdName").val().trim();
+            var stdAge = $("#txtStdAge").val().trim();
+            var stdSubject = $("#txtStdSubject").val().trim();
+            if (stdName != "" && stdAge != "" && stdSubject != "") {
+                var type = "POST";
+                var url = "/CallCrudApiByHttpClient/AddUpdateStudent";
+                var obj = { name: stdName, age: stdAge, subject: stdSubject };
+                var jsonObj = JSON.stringify(obj);
+                AjaxCall(type, url, jsonObj).then(function (res) {
+                    debugger
+                    if (res.resultantObject.Status_Code == "200") {
+                        $("#stdForm")[0].reset();
+                        $("#btnAdd").show();
+                        $("#btnUpdateStd").hide();
+                        GetStds();
+                    }
+                }).catch(function (err) {
+                    alert("Oops something is wrong...");
+                });
+            }
+        }
+
+        function AjaxCall(type, url, data = "") {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    type: type,
+                    url: url,
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (res, status, xhr) {
+                        resolve(res)
+                    },
+                    error: function (err, status, xhr) {
+                        reject(err)
+                    }
+                });
+            });
+        }
+    </script>
+
+    <script>
+        $(function () {
+            GetStds();
+        });
+    </script>
+}
+

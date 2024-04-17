@@ -1,0 +1,18 @@
+﻿
+@model List<Learn_mvc.Database.product>
+
+@{ 
+    var brands = Model.Select(x=>x.brand);
+}
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@foreach (var item in brands)
+{
+    <p>@item.brand_name</p><br />
+}
+

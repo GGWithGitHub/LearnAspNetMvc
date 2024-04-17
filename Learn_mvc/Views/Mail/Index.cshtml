@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>Please Put Your Mail Id To Get Mail</p>
+
+@using (Html.BeginForm("SendMail", "Mail", FormMethod.Post))
+{
+    <input type="text" name="toMail" />
+    <input type="submit" name="btnSubmit1" value="Click Here">
+}
+
+
+<hr />
+
+<p>Please Put Your Mail Id To Get Mail With Attachment</p>
+
+@using (Html.BeginForm("SendMailWithAttachment", "Mail", FormMethod.Post))
+{
+    <input type="text" name="toMailWithAttachment" />
+    <input type="submit" name="btnSubmit2" value="Click Here">
+}

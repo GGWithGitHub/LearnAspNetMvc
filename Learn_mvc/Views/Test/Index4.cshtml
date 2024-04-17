@@ -1,0 +1,23 @@
+﻿@model Learn_mvc.Models.Card
+
+@{
+    ViewBag.Title = "Index4";
+}
+
+@if (ViewBag.msg!=null) { 
+    <h6>@ViewBag.msg</h6>
+}
+
+@using (Html.BeginForm("Index4", "Test", FormMethod.Post))
+{
+    <label>Card Name</label>
+    @Html.TextBoxFor(m => m.CardName)
+    <br />
+    <label>Card Number</label>
+    @Html.TextBoxFor(m => m.CardNumber)
+
+    <input type="hidden" value="@Model.EncryptedCardNumber" />
+
+    <input type="submit" value="Submit" />
+}
+

@@ -1,0 +1,127 @@
+﻿@using Learn_mvc;
+@model Learn_mvc.Models.BigViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("Index", "DynamicControls", FormMethod.Post, new { id = "myForm" }))
+{
+    @Html.DropDownListFor(m => m.CountryViewModel.Id, new SelectList(Model.CountryViewModels, "Id", "Name"))
+    @Html.ValidationMessageFor(m => m.CountryViewModel.Id)
+
+    <br />
+    <br />
+
+    foreach (var m in Model.HobbyViewModels)
+    {
+        <table>
+            <tr>
+                <td>
+                    @Html.RadioButtonFor(x => x.HobbyViewModel.Id, m.Id)
+                    @Html.HiddenFor(x => x.HobbyViewModel.Name, m.Name)
+                </td>
+                <td>
+                    @Html.Label(m.Name)
+                </td>
+            </tr>
+        </table>
+    }
+    @Html.ValidationMessageFor(m => m.HobbyViewModel.Id)
+
+    <br />
+    <br />
+
+
+    <table id="tblFruits">
+        @for (var i = 0; i < Model.FruitViewModels.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Html.HiddenFor(m => Model.FruitViewModels[i].Id)
+                    @Html.HiddenFor(m => Model.FruitViewModels[i].Name)
+                    @*@Html.CheckBoxFor(m => Model.FruitViewModels[i].Checked)*@
+                    @*@Html.CheckBoxFor(m => Model.FruitViewModels[i].fruits[0].Checked)*@
+                    @Html.CheckBoxFor(m => Model.FruitViewModel.fruits[i].Checked, new { @class = "fruitclass" })
+                </td>
+                <td>
+                    @Html.DisplayFor(m => Model.FruitViewModels[i].Name)
+                </td>
+            </tr>
+        }
+    </table>
+    <span class="fruit_error" style="display: none;">Please select at-least one Fruit.</span>
+    @Html.ValidationMessageFor(m => Model.FruitViewModel.fruits)
+
+    <br />
+    <br />
+
+    <input type="submit" id="btnSubmit" value="Create" class="btn btn-default" />
+}
+
+<br />
+<br />
+
+<input type="button" value="Get_selected_value_in_control" onclick="location.href='@Url.Action("Get_selected_value_for_controls", "DynamicControls")'" />
+
+@*
+ <script>
+    $(function () {
+        jQuery.validator.addMethod('checkboxatleastone', function (value, element, params) {
+            check_at_least_one_cb_checked();
+        });
+
+        jQuery.validator.unobtrusive.adapters.add('checkboxatleastone', function (options) {
+            options.rules['checkboxatleastone'] = {};
+            options.messages['checkboxatleastone'] = options.message;
+        });
+    }(jQuery));
+
+    function check_at_least_one_cb_checked() {
+        var checked_checkboxes = $("#tblFruits input[type=checkbox]:checked");
+        if (checked_checkboxes.length == 0) {
+            $(".fruit_error").show();
+            return false;
+        }
+        else {
+            $(".fruit_error").hide();
+            return true;
+        }
+    }
+</script>*@
+
+<script type="text/javascript">
+    
+    $("#btnSubmit").click(function (e) {
+        check_at_least_one_cb_checked(e);
+    });
+
+    $(".fruitclass").click(function () {
+        check_at_least_one_cb_checked();
+    });
+
+    function check_at_least_one_cb_checked(e) {
+
+        $("#myForm").validate({
+            ignore: "#tblFruits"
+        });
+
+        var valid_form_except_fruits = $("#myForm").valid();
+
+        var checked_checkboxes = $("#tblFruits input[type=checkbox]:checked");
+        if (checked_checkboxes.length == 0) {
+            $(".fruit_error").show();
+            if (valid_form_except_fruits) {
+                e.preventDefault();
+            }
+        }
+        else {
+            $(".fruit_error").hide();
+        }
+    }
+</script>
+
+
+

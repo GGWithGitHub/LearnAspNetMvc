@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="411806a806494fc08cc738411f4ae356" Name="Diagram1">
+        <EntityTypeShape EntityType="BikeStoresModel.brand" Width="1.5" PointX="1.5" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BikeStoresModel.category" Width="1.5" PointX="1.5" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BikeStoresModel.product" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BikeStoresModel.stock" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BikeStoresModel.customer" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BikeStoresModel.order_items" Width="1.5" PointX="7.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BikeStoresModel.order" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="BikeStoresModel.staff" Width="1.5" PointX="3" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BikeStoresModel.store" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <AssociationConnector Association="BikeStoresModel.FK__products__brand___3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="BikeStoresModel.FK__products__catego__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="BikeStoresModel.FK__order_ite__produ__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="BikeStoresModel.FK__stocks__product___52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="BikeStoresModel.FK__stocks__store_id__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="BikeStoresModel.FK__orders__customer__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="BikeStoresModel.FK__order_ite__order__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="BikeStoresModel.FK__orders__staff_id__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="BikeStoresModel.FK__orders__store_id__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="BikeStoresModel.FK__staffs__manager___44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="BikeStoresModel.FK__staffs__store_id__440B1D61" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

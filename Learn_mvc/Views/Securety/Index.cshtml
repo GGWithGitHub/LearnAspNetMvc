@@ -1,0 +1,62 @@
+﻿@using Learn_mvc.Models
+
+@{
+    ViewBag.Title = "Index";
+    var usercomments = ViewBag.usrcomments as List<UserComment>;
+}
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+</style>
+
+<br />
+
+<p><b>User Comments :</b></p>
+@foreach (var item in usercomments) { 
+<table>
+    <tr>
+        <th>User Name</th>
+        <th>User Email</th>
+        <th>User Comments</th>
+    </tr>
+    <tr>
+        <td>@item.username</td>
+        <td>@item.useremail</td>
+        <td>@Html.Raw(item.usercomments)</td>
+    </tr>
+</table>
+}
+
+<hr />
+
+@if (TempData["msg"] != null) 
+{ 
+    <h2>@TempData["msg"]</h2>
+}
+
+@using (Html.BeginForm("Xss", "Securety", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <label>User Name</label>
+    <input type="text" name="username" /><br />
+
+    <label>User Email</label>
+    <input type="text" name="useremail" /><br />
+
+    <label>User Comments</label>
+    <textarea type="text" name="usercomments"></textarea><br />
+
+    <input type="submit" value="Submit" />
+}
+
+<hr />
+
+<b>Note : </b>
+<p>We set "requestValidationMode="2.0" inside httpRuntime tag of Web.config file</p>
+<p>We set GlobalFilters.Filters.Add(new ValidateInputAttribute(false)); inside Application_Start() function of Global.asax.cs</p>
+<p>Install "AntiXSS" package and worked inside Xss() function of SecuretyController</p>
+

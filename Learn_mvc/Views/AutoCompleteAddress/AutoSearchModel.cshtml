@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "AutoSearchModel";
+}
+
+<input id="inpModelNumber" type="text" class="form-control" placeholder="Model Number" />
+<div id="menu-container1" class="menu-container"></div>
+
+@section scripts{
+    <script>
+        $(function () {
+            var mcache = {}, lastMXhr;
+            var pcache = {}, lastPXhr;
+
+            $('#inpModelNumber').on("keydown", function (event) { }).autocomplete({
+                scroll: true,
+                source: function (request, response) {
+                    var prefixText = request.term.toLowerCase();
+
+                    if (prefixText in mcache) {
+                        response(formatAutocompleteResponse(mcache[prefixText]));
+                        return;
+                    }
+
+                    lastMXhr = $.getJSON('/AutoCompleteAddress/FetchModels', { query: prefixText }, function (data, status, xhr) {
+                        mcache[prefixText] = data;
+                        if (xhr === lastMXhr) {
+                            response(formatAutocompleteResponse(data));
+                        }
+                    });
+                },
+                appendTo: '#menu-container1'
+            })
+
+            function formatAutocompleteResponse(data) {
+
+                var uiData = []
+
+                $.each(data, function (k,v) {
+                    uiData.push({ label: v.Key + ' ' + v.Value, value: v.Key });
+                });
+
+                return uiData;
+
+            }
+        });
+    </script>    
+}
+

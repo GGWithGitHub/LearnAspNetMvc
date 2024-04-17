@@ -1,0 +1,202 @@
+﻿
+@{
+    ViewBag.Title = "MachineIcons2";
+}
+
+<div class="accordion" id="accordionExample"></div>
+
+@section scripts{
+    <script>
+        var menus = [
+            {
+                "menuID": "1",
+                "description": "Table Saws",
+                "group": [
+                    {
+                        "groupID": "6297",
+                        "sku": "G0444",
+                        "description": "G0444 10\" Tablesaw",
+                        "price": "495.0000",
+                        "icon": {
+                            "iconID": "6297",
+                            "displayLevel": "30",
+                            "description": "G0444 10\" Tablesaw",
+                            "name": "G0444.svg",
+                            "dimension": [
+                                {
+                                    "type": "depth",
+                                    "value": "47.00"
+                                },
+                                {
+                                    "type": "height",
+                                    "value": "35.00"
+                                },
+                                {
+                                    "type": "length",
+                                    "value": "57.00"
+                                },
+                                {
+                                    "type": "sortOrder",
+                                    "value": "1.00"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "groupID": "6294",
+                        "sku": "G0444Z",
+                        "description": "G0444Z 10\" Tablesaw",
+                        "price": "575.0000",
+                        "icon": {
+                            "iconID": "6294",
+                            "displayLevel": "30",
+                            "description": "G0444Z 10\" Tablesaw",
+                            "name": "G0444Z.svg",
+                            "dimension": [
+                                {
+                                    "type": "depth",
+                                    "value": "47.00"
+                                },
+                                {
+                                    "type": "height",
+                                    "value": "35.00"
+                                },
+                                {
+                                    "type": "length",
+                                    "value": "57.00"
+                                },
+                                {
+                                    "type": "sortOrder",
+                                    "value": "1.00"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                "menuID": "2",
+                "description": "Planers",
+                "group": [
+                    {
+                        "groupID": "6195",
+                        "sku": "G0505",
+                        "description": "G0505 12-1/2\" Planer",
+                        "price": "219.9500",
+                        "icon": {
+                            "iconID": "6195",
+                            "displayLevel": "30",
+                            "description": "G0505 12-1/2\" Planer",
+                            "name": "G0505.svg",
+                            "dimension": [
+                                {
+                                    "type": "depth",
+                                    "value": "27.00"
+                                },
+                                {
+                                    "type": "height",
+                                    "value": "19.00"
+                                },
+                                {
+                                    "type": "length",
+                                    "value": "23.00"
+                                },
+                                {
+                                    "type": "sortOrder",
+                                    "value": "1.00"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "groupID": "6338",
+                        "sku": "g0550",
+                        "description": "G0550 15\" Planer W/ Open Stand",
+                        "price": "675.0000",
+                        "icon": {
+                            "iconID": "6338",
+                            "displayLevel": "30",
+                            "description": "G0550 15\" Planer W/ Open Stand",
+                            "name": "G0550.svg",
+                            "dimension": [
+                                {
+                                    "type": "length",
+                                    "value": "28.00"
+                                },
+                                {
+                                    "type": "height",
+                                    "value": "53.00"
+                                },
+                                {
+                                    "type": "depth",
+                                    "value": "49.00"
+                                },
+                                {
+                                    "type": "sortOrder",
+                                    "value": "1.00"
+                                }
+                            ]
+                        }
+                    },
+                ]
+            }
+        ];
+
+        $(function () {
+
+            LoadMachinesImg();
+
+        });
+
+        //#region showing machines images
+        function LoadMachinesImg() {
+            menus.map(function (menu) {
+
+                var heading = "heading" + menu.menuID;
+                var collapse = "collapse" + menu.menuID;
+                var headerBtn = "headerBtn" + menu.menuID;
+                var imgRow = "imgRow" + menu.menuID;
+                var menuHtml = `<div class="item">
+                            <div class="item-header" id="`+ heading + `" >
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
+                                        data-target="#`+ collapse + `" aria-expanded="true" aria-controls="` + collapse + `" id="` + headerBtn + `">
+                                        
+                                        <i class="fa fa-angle-down"></i>
+                                    </button>
+                                </h2>
+                             </div >
+                            <div id="`+ collapse + `" class="collapse " aria-labelledby="` + heading + `"
+                                data-parent="#accordionExample">
+                                <div class="t-p">
+                                    <div class="drag_img">
+                                        <div class="row" id="`+ imgRow + `">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>`;
+
+                menuHtml = $.parseHTML(menuHtml);
+
+                $(menuHtml).find("#" + headerBtn).html(menu.description);
+
+                menu.group.map(function (group) {
+                    var imgSrc = "https://cdn0.grizzly.com/shopplanner/icons/" + group.icon.name;
+                    $(menuHtml).find("#" + imgRow).append(
+                        `<div class="col-md-6 col-lg-4">
+                        <img draggable="true" src="`+ imgSrc + `" />
+                    </div>`
+                    );
+                });
+
+                $("#accordionExample").append(menuHtml);
+
+
+            });
+        }
+    //#endregion
+    </script>
+}
+

@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+</style>
+
+<button onclick="Print()">Print</button>
+
+<div id="loadPrintHtml">
+    <img src="/Content/img/Panda.jpg" />
+    <table style="width:100%">
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Age</th>
+        </tr>
+        <tr>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>50</td>
+        </tr>
+        <tr>
+            <td>Eve</td>
+            <td>Jackson</td>
+            <td>94</td>
+        </tr>
+        <tr>
+            <td>John</td>
+            <td>Doe</td>
+            <td>80</td>
+        </tr>
+    </table>
+</div>
+
+@section scripts{
+    <script>
+        function Print() {
+            var type = "POST";
+            var url = "/Print/LoadDynamicHtml";
+            var data =
+            {
+                "Img": "/Content/img/Panda.jpg",
+                "StdList": [
+                    {
+                        "fn": "Jill",
+                        "ln": "Smith",
+                        "age": "50"
+                    },
+                    {
+                        "fn": "Eve",
+                        "ln": "Jackson",
+                        "age": "90"
+                    },
+                    {
+                        "fn": "John",
+                        "ln": "Doe",
+                        "age": "80"
+                    }
+                ]
+            };
+            AjaxCall(type, url, data).then(function (res) {
+                debugger
+                var windowContent = res;
+                const printWin = window.open('', '', 'width=' + screen.availWidth + ',height=' + screen.availHeight);
+                printWin.document.open();
+                printWin.document.write(windowContent);
+
+                printWin.document.addEventListener('load', function () {
+                    printWin.print();
+                    printWin.document.close();
+                    printWin.close();
+                }, true);
+            }).catch(function (err) {
+                alert("Oops something wrong...");
+            })
+        }
+
+        function AjaxCall(type, url, data = "") {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    type: type,
+                    url: url,
+                    data: data,
+                    //contentType: "application/json; charset=utf-8",
+                    //dataType: "json",
+                    dataType: "text",
+                    success: function (res) {
+                        resolve(res)
+                    },
+                    error: function (err) {
+                        reject(err)
+                    }
+                });
+            });
+        }
+
+        //$(document).ready(function () {
+        //    $('#loadPrintHtml').load('/Content/html/Print.html');
+        //});
+    </script>
+}

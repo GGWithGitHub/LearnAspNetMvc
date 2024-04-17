@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "GetData";
+}
+
+<h1>Showing Category Links</h1>
+<button onclick="onRefresh()">Refresh</button>
+<div id="categoryLinkContainer"></div>
+<script id="category-template" type="text/template">
+    <h3 class="category" style="margin-bottom:10px;">#CategoryName#</h3>
+    <div>
+        <ul class="links" style="margin:0;list-style-type:none;">#Links#</ul>
+    </div>
+</script>
+<script id="link-template" type="text/template">
+    <li class="link">
+        <div><a href="#" title="#LinkTooltip#" style="text-decoration:none;">#LinkText#</a></div>
+    </li>
+</script>
+
+@section scripts{
+    <script>
+        var text = '@Html.Raw( ViewBag.CategoryLink)';
+        loadCategoryLinks(text);
+        function loadCategoryLinks(text) {
+            var categories = JSON.parse(text);
+            var categoriesHtml = "";
+            for (var i = 0; i < categories.length; i++) {
+                var categoryHtml = $("script#category-template").html().replace(/#CategoryName#/g, categories[i].Category);
+
+                var linksHtml = "";
+                for (var ii = 0; ii < categories[i].Links.length; ii++) {
+                    linksHtml += $("script#link-template").html()
+                        .replace(/#LinkText#/g, categories[i].Links[ii])
+                        .replace(/#LinkTooltip#/g, categories[i].Links[ii]);
+                }
+
+                categoryHtml = categoryHtml.replace("#Links#", linksHtml);
+
+                categoriesHtml += categoryHtml;
+            }
+            $("#categoryLinkContainer").empty().append(categoriesHtml);
+        }
+    </script>
+    <script>
+        function onRefresh() {
+            var text = '[{"Category":"Category 3","Links":["Link 1","Link 2","Link 3"]},{"Category":"Category 4","Links":["Link 1","Link 2","Link 3"]}]';
+            loadCategoryLinks(text);
+        }
+    </script>
+}

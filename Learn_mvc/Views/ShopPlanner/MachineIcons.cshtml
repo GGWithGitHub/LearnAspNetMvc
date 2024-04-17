@@ -1,0 +1,151 @@
+﻿
+@{
+    ViewBag.Title = "MachineIcons";
+}
+
+<!--Accordion wrapper-->
+<div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
+
+    <!-- Accordion card -->
+    <!--<div class="card">-->
+
+        <!-- Card header -->
+        <!--<div class="card-header" role="tab" id="headingTwo1">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo1"
+               aria-expanded="false" aria-controls="collapseTwo1">
+                <h5 class="mb-0">
+                    Collapsible Group Item #1 <i class="fas fa-angle-down rotate-icon"></i>
+                </h5>
+            </a>
+        </div>-->
+
+        <!-- Card body -->
+        <!--<div id="collapseTwo1" class="collapse" role="tabpanel" aria-labelledby="headingTwo1"
+             data-parent="#accordionEx1">
+            <div class="card-body">
+                Hello I am card body
+            </div>
+        </div>
+
+    </div>-->
+    <!-- Accordion card -->
+</div>
+<!-- Accordion wrapper -->
+
+@section scripts{
+    <script>
+
+        var skus = [];
+
+        $(function () {
+
+            var machines = [
+                {
+                    "machineId": "1",
+                    "title": "Table saw",
+                    "group": [
+                        {
+                            "sku": "g0555",
+                            "machineName": "g0555 machine",
+                        },
+                        {
+                            "sku": "g0556",
+                            "machineName": "g0556 machine",
+                        }
+                    ]
+                },
+                {
+                    "machineId": "2",
+                    "title": "Jointers",
+                    "group": [
+                        {
+                            "sku": "g0557",
+                            "machineName": "g0557 machine",
+                        },
+                        {
+                            "sku": "g0558",
+                            "machineName": "g0558 machine",
+                        }
+                    ]
+                },
+            ];
+
+            machines = JSON.stringify(machines);
+
+            //console.log("stringify = "+machines);
+
+            machines = JSON.parse(machines);
+
+            //console.log("parse = "+machines);
+
+            var id = 0;
+            var card = "";
+            machines.map(function (machine) {
+                
+                var cardStart = '<div class="card">';
+                var cardClose = '<div>';
+
+                var machineTitle = '<div class="card-header" role="tab" id="heading' + id + '">\
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapse' + id + '" aria-expanded="false" aria-controls="collapse' + id + '">\
+                                            <h5 class="mb-0">\
+                                                ' + machine.title + ' <i class="fas fa-angle-down rotate-icon"></i>\
+                                            </h5>\
+                                        </a>\
+                                    </div>';
+
+                cardStart = cardStart + machineTitle;
+
+                var cardBody = "";
+                var cardBodyStart = '<div id="collapse' + id + '" class="collapse" role="tabpanel" aria-labelledby="heading' + id + '" data-parent="#accordionEx1">\
+                                     <div class="card-body">';
+                var cardBodyClose = '</div>\
+                                     </div>';
+
+                var inputMachineIconSearch = '<input type="text" id="searchMachineIcon' + id + '" onkeyup="searchMachineIcon(this,' + id + ')" />';
+                cardBodyStart += inputMachineIconSearch;
+
+                var machineName = "";
+                var sku = [];
+                machine.group.map(function (group) {
+                    machineName += '<ul id="' + group.sku+'">' + group.machineName + '</ul>';
+
+                    var skuObj = {
+                        "sku": group.sku
+                    };
+                    sku.push(skuObj);
+                });
+                cardBody = cardBodyStart + machineName + cardBodyClose;
+
+                card = cardStart + cardBody + cardClose;
+
+                $("#accordionEx1").append(card);
+
+                id++;
+                skus.push(sku);
+            });
+
+        });
+
+        function searchMachineIcon(ele, id) {
+            //console.log(ele.value);
+            skus[id].map(function (s) {
+                if (ele.value == s.sku) {
+                    hideOtherMachineIcon(s.sku, id);
+                }
+                else {
+                    $("#" + s.sku).css("display", "block");
+                }
+            });
+        }
+
+        function hideOtherMachineIcon(sku,id) {
+            skus[id].map(function (s) {
+                if (sku != s.sku) {
+                    $("#" + s.sku).css("display","none");
+                }
+            });
+        }
+
+    </script>
+}
+
