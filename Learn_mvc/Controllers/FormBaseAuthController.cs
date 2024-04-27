@@ -1,4 +1,5 @@
-﻿using Learn_mvc.Models;
+﻿using Learn_mvc.Helper;
+using Learn_mvc.Models;
 using Learn_mvc.Security;
 using Newtonsoft.Json;
 using System;
@@ -88,6 +89,8 @@ namespace Learn_mvc.Controllers
         [CustomAuthorize(Roles = "User1")]
         public ActionResult User1()
         {
+            var customPrincipal = HttpContext.User as CustomPrincipal;
+            ViewBag.UserEmail = customPrincipal.UserEmail;
             return View();
         }
 
