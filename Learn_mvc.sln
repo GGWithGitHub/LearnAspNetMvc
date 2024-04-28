@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn_mvc", "Learn_mvc\Lear
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn_mvc.Data", "Learn_mvc.Data\Learn_mvc.Data.csproj", "{CEE05AC7-F3E9-4DB8-B810-56C9CBB6DF00}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Learn_mvc.Core", "Learn_mvc.Core\Learn_mvc.Core.csproj", "{EFBA6A3C-DA6B-4388-A9FF-FCA371752E34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CEE05AC7-F3E9-4DB8-B810-56C9CBB6DF00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEE05AC7-F3E9-4DB8-B810-56C9CBB6DF00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEE05AC7-F3E9-4DB8-B810-56C9CBB6DF00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFBA6A3C-DA6B-4388-A9FF-FCA371752E34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFBA6A3C-DA6B-4388-A9FF-FCA371752E34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFBA6A3C-DA6B-4388-A9FF-FCA371752E34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFBA6A3C-DA6B-4388-A9FF-FCA371752E34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -346,6 +346,10 @@
     <Content Include="Views\Test\Index6.cshtml" />
     <Content Include="Views\Javasript\GetData.cshtml" />
     <Content Include="Views\Javasript\GetListObject.cshtml" />
+    <Content Include="Views\GenericRepoAndUOFPattern\GetAllCustomers.cshtml" />
+    <Content Include="Views\GenericRepoAndUOFPattern\AddCustomer.cshtml" />
+    <Content Include="Views\GenericRepoAndUOFPattern\UpdateCustomer.cshtml" />
+    <Content Include="Views\GenericRepoAndUOFPattern\DeleteCustomer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -361,6 +365,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Learn_mvc.Core\Learn_mvc.Core.csproj">
+      <Project>{efba6a3c-da6b-4388-a9ff-fca371752e34}</Project>
+      <Name>Learn_mvc.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Learn_mvc.Data\Learn_mvc.Data.csproj">
       <Project>{cee05ac7-f3e9-4db8-b810-56c9cbb6df00}</Project>
       <Name>Learn_mvc.Data</Name>
