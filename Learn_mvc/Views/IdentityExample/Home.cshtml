@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+}
+
+<button onclick="location.href='@Url.Action("LogOff", "IdentityExample")'">Log out</button>
+<br />
+<br />
+
+@Html.ActionLink("User page", "UserPage", "IdentityExample")
+<br />
+<br />
+@Html.ActionLink("Admin page", "AdminPage", "IdentityExample")
+

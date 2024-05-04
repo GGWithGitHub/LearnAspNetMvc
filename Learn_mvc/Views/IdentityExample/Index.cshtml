@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <p>
+            Learn_mvc.Data:
+            Installed "Microsoft.AspNet.Identity.EntityFramework" package with "2.2.4" version
+            Installed "Microsoft.AspNet.Identity.Owin" package with "2.2.4" version
+
+            Create a class "MyIdentityUser" that inherit the "IdentityUser"
+
+            Create a dbcontext class "MyIdentityDbContext" that inherit "IdentityDbContext of MyIdentityUser" and specify the connection string name
+
+            Create a class "MyUserStore".
+
+            Create a class "MyUserManager".
+
+            Create a class "MySignInManager".
+
+            Learn_mvc:
+            Installed "Microsoft.AspNet.Identity.EntityFramework" package with "2.2.4" version
+            Installed "Microsoft.AspNet.Identity.Owin" package with "2.2.4" version
+            Installed "Microsoft.Owin.Host.SystemWeb" package with "4.2.2" version
+
+            Create a new owin class name is "Startup.Auth.cs" and configured the cookie authentication.
+
+            Add a new connection string in the "Web.config".
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.ActionLink("Register", "Register", "IdentityExample")
+    </div>
+</div>
+
