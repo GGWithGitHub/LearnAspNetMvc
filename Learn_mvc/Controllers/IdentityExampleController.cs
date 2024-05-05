@@ -159,6 +159,8 @@ namespace Learn_mvc.Controllers
         [CustomAuthorize]
         public ActionResult Home()
         {
+            ViewBag.UserName = User.Identity.Name;
+            ViewBag.UserId = User.Identity.GetUserId();
             return View();
         }
 

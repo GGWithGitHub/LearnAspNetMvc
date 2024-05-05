@@ -4,6 +4,8 @@
     ViewBag.Title = "Register";
 }
 
+<h2>Register page</h2>
+
 <br/><br />
 
 @using (Html.BeginForm("Register", "IdentityExample", FormMethod.Post))
@@ -36,6 +38,6 @@
 }
 
 <div>
-    @Html.ActionLink("Login", "Login", "IdentityExample")
+    @Html.ActionLink("Go to Login", "Login", "IdentityExample")
 </div>
 
